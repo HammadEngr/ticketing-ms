@@ -11,10 +11,10 @@ build:
   #   push: false
   #   useBuildkit: true
   googleCloudBuild:
-    projectId: ticketing-502622
+    projectId: tickets-503310
 
   artifacts:
-    - image: us.gcr.io/ticketing-502622/auth
+    - image: us.gcr.io/tickets-503310/auth
       context: auth
       docker:
         dockerfile: Dockerfile

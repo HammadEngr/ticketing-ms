@@ -1,20 +1,20 @@
-apiVersion: apps/v1             # Use the stable "apps/v1" API group for Deployments
-kind: Deployment                 # This resource is a Deployment (manages pods + rolling updates)
+apiVersion: apps/v1 # Use the stable "apps/v1" API group for Deployments
+kind: Deployment # This resource is a Deployment (manages pods + rolling updates)
 metadata:
-  name: auth-depl                # Name of this Deployment object (used in kubectl commands)
+  name: auth-depl # Name of this Deployment object (used in kubectl commands)
 spec:
-  replicas: 1                    # Keep exactly 1 pod instance running at all times
+  replicas: 1 # Keep exactly 1 pod instance running at all times
   selector:
     matchLabels:
-      app: auth                  # This Deployment manages any pod labeled "app: auth"
-  template:                      # Blueprint used to create each pod
+      app: auth # This Deployment manages any pod labeled "app: auth"
+  template: # Blueprint used to create each pod
     metadata:
       labels:
-        app: auth                # Label applied to pods so the selector above can find them
+        app: auth # Label applied to pods so the selector above can find them
     spec:
       containers:
-        - name: auth             # Name of the container inside the pod (for logs/exec)
-          image: us.gcr.io/ticketing-502622/auth   # Docker image to pull & run (from Google Container Registry, no tag = defaults to :latest)
+        - name: auth # Name of the container inside the pod (for logs/exec)
+          image: us.gcr.io/tickets-503310/auth # Docker image to pull & run (from Google Container Registry, no tag = defaults to :latest)
 
 ---
 apiVersion: v1

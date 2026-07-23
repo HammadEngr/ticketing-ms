@@ -8,32 +8,41 @@ import { signupRouter } from "./routes/signup.js";
 import { errorHandler } from "./middlewares/error-handler.js";
 import { NotFoundError } from "./errors/not-found-errors.js";
 import mongoose from "mongoose";
+import cookieSession from "cookie-session";
 
 const app = express();
+app.set("trust proxy", true);
 app.use(bodyParser.json());
+
+app.use(
+  cookieSession({
+    signed: false,
+    secure: true,
+  }),
+);
 
 app.use(currentUserRouter);
 app.use(signupRouter);
 app.use(signinRouter);
 app.use(signoutRouter);
 
-app.all("*", async(req, res, next) => {
-  next(new NotFoundError())
-})
+app.all("*", async (req, res, next) => {
+  next(new NotFoundError());
+});
 
 app.use(errorHandler);
 
-const start = async()=>{
+const start = async () => {
   try {
-    await mongoose.connect("mongodb://auth-mongo-srv:27017/auth")
-    console.log("connected to mongodb")
+    await mongoose.connect("mongodb://auth-mongo-srv:27017/auth");
+    console.log("connected to mongodb");
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-  
+
   app.listen(3000, () => {
     console.log("Auth Service Listening at port 3000!!!!!!!!!!!!!!!!!!!");
   });
-}
+};
 
-start()
+start();
